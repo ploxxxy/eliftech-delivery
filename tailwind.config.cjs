@@ -2,7 +2,11 @@ const config = {
   content: ["./src/**/*.{html,js,svelte,ts}"],
 
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        '128': '32rem',
+      }
+    },
   },
 
   daisyui: {

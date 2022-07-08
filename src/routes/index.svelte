@@ -6,8 +6,8 @@
     let activeTab = null
 
     const tabChange = e => {
-            activeTab = e.detail
-        }
+        activeTab = e.detail
+    }
 
 </script>
 
