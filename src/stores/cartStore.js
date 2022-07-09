@@ -58,3 +58,7 @@ export const setProduct = (product, amount) => {
 export const setShop = (store) => {
     shop.set(store)
 }
+
+export const resetCart = () => {
+    cart.set([])
+}

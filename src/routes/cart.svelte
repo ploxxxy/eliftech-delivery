@@ -1,5 +1,5 @@
 <script>
-    import { cart } from '../stores/cartStore'
+    import { cart, resetCart } from '../stores/cartStore'
     import { addHistory } from '../stores/historyStore'
     import CartItem from '$lib/CartItem.svelte'
 
@@ -9,6 +9,7 @@
     let location = ''
 
     let total
+    let success = false
 
     const calcTotal = () => {
         total = 0
@@ -20,11 +21,12 @@
     calcTotal()
 
     const handleSubmit = (name, email, phone, total, location) => {
-        addHistory($cart, email, phone, name, total, location).then(res => console.log(res)).catch(err => console.log(err))
+        addHistory($cart, email, phone, name, total, location).then(res => handleSuccess() ).catch(err => console.log(err))
     }
 
     const handleSuccess = () => {
-        $cart.clear()
+        success = true
+        resetCart()
         calcTotal()
     }
     
@@ -115,4 +117,15 @@
         </div>
     </div>
 
+</div>
+
+<div class="modal modal-bottom sm:modal-middle" class:modal-open={success}>
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Thanks for ordering with us!</h3>
+    <p class="py-4">Your items are already getting prepared for delivery. You can view your progress in the history tab!</p>
+    <div class="modal-action">
+        <a href="/history" class="btn btn-accent btn-outline">View History</a>
+        <a href="./" class="btn btn-primary btn-outline">OK</a>
+    </div>
+  </div>
 </div>
