@@ -20,7 +20,7 @@
             <i class="text-2xl bi bi-clock-history"></i>
         </a>
 
-        <a href="/coupons" class="btn btn-ghost btn-square">
+        <a href="/coupons" class="btn btn-ghost btn-square btn-disabled">
             <i class="text-2xl bi bi-ticket-perforated"></i>
         </a>
       

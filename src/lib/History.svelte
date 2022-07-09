@@ -3,13 +3,13 @@
 </script>
 
 <div class="w-full flex flex-col justify-center items-center border p-8 rounded-md gap-4 min-h-16">
-    {#if !history}
-        <p>Please search!</p>
+    {#if !history || history.length === 0}
+    <p class="font-mono bg-base-200 rounded-md p-2">Please search!</p>
     {:else}
-            <div class="flex flex-col gap-4 w-full h-96 overflow-auto p-4">
+            <div class="flex flex-col gap-4 w-full h-96 overflow-auto md:p-4">
                 {#each history as data}
-                    <div class="flex gap-4 border rounded-md p-2">
-                        <div class="w-1/2 flex flex-row gap-2 border rounded-md overflow-auto p-2 items-center">
+                    <div class="flex flex-col md:flex-row gap-4 border rounded-md p-2">
+                        <div class="w-full flex flex-col md:flex-row gap-2 border rounded-md overflow-auto p-2 items-center">
                             {#each data.cart as item}
                                 <div class="card card-side card-compact border rounded-md shrink-0">
                                     <figure><img class="w-48 h-48 object-cover" src={item.product.image} alt="Product"></figure>

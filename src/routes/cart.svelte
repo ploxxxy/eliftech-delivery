@@ -6,22 +6,21 @@
     let name = ''
     let email = ''
     let phone = ''
+    let location = ''
 
     let total
 
     const calcTotal = () => {
         total = 0
         $cart.forEach(element => {
-            console.log(element)
             total = total + element.product.price * element.quantity
         })
     }
 
     calcTotal()
 
-    const handleSubmit = (name, email, phone, total) => {
-        console.log(total)
-        addHistory($cart, email, phone, name, total).then(res => console.log(res)).catch(err => console.log(err))
+    const handleSubmit = (name, email, phone, total, location) => {
+        addHistory($cart, email, phone, name, total, location).then(res => console.log(res)).catch(err => console.log(err))
     }
 
     const handleSuccess = () => {
@@ -42,21 +41,35 @@
         return (number && parseInt(number) && number.length == 10)
     }
 
+    const validateLoc = (location) => {
+        return (location && location.match(/\w{1,}\,?\d{1,}/g))
+    }
+
     const dummyData = () => {
         name = 'Ted Roosevelt'
         email = 'ted.roosevelt@hotmail.com'
         phone = '0123456789'
+        location = '123 Main St, New York, NY 10001'
     }
 </script>
 
-<div class="flex gap-8">
+<svelte:head><title>Super Delivery - Cart</title></svelte:head>
+
+<div class="flex flex-col md:flex-row gap-8">
 
     <div class="w-full border rounded-md p-8 flex flex-col gap-4">
 
         <div class="form-control">
 
-            <div class="w-full h-96 bg-primary flex items-center justify-center rounded-md mb-4"><p>Location</p></div>
             <button class="btn btn-sm normal-case btn-accent btn-outline w-36" on:click={dummyData}><i class="text-xl bi bi-person-circle mr-2"></i> Dummy Data</button>
+
+            <label for="0" class="label">
+                <span class="label-text">Your address</span>
+            </label>
+            <input id="0" type="text" placeholder="Type here" class="input input-bordered" class:input-error={!validateLoc(location)} bind:value={location} />
+            <label for="0" class="label" class:hidden={validateLoc(location)}>
+                <span class="label-text-alt text-error">Invalid address! Please include your street & house building</span>
+            </label>
 
             <label for="0" class="label">
                 <span class="label-text">Your full name:</span>
@@ -86,14 +99,19 @@
 
     <div class="flex flex-col gap-8 w-full">
         <div class="border rounded-md p-8 flex flex-col gap-4 h-128 overflow-auto">
+
+            {#if $cart.length == 0}
+                <p class="font-mono bg-base-200 rounded-md p-2">Add items into your cart by selecting them on the home page</p>
+            {/if}
+
             {#each $cart as item}
                 <CartItem {item} on:amountChanged={calcTotal}/>
             {/each}
         </div>
 
-        <div class="ml-auto flex gap-8 p-8">
-            <p class="my-auto font-semibold text-xl">Total price: ${total.toFixed(2)}</p>
-            <button class="btn btn-primary btn-wide normal-case text-xl" class:btn-disabled={total == 0 || !validateNumber(phone) || !validateEmail(email) || !validateName(name)} class:btn-outline={total > 0 && validateNumber(phone) && validateEmail(email) && validateName(name)} on:click={() => handleSubmit(name, email, phone, total.toFixed(2))}>Submit</button>
+        <div class="md:ml-auto flex flex-col md:flex-row items-center gap-8 p-8">
+            <p class="font-semibold text-xl">Total price: ${total.toFixed(2)}</p>
+            <button class="btn btn-primary btn-wide normal-case text-xl" class:btn-disabled={total == 0 || !validateNumber(phone) || !validateEmail(email) || !validateName(name)} class:btn-outline={total > 0 && validateNumber(phone) && validateEmail(email) && validateName(name)} on:click={() => handleSubmit(name, email, phone, total.toFixed(2), location)}>Submit</button>
         </div>
     </div>
 

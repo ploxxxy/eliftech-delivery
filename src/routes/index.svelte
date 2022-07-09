@@ -11,6 +11,8 @@
 
 </script>
 
+<svelte:head><title>Super Delivery - Home</title></svelte:head>
+
 <div class="flex flex-col md:flex-row w-ful gap-8">
 
     <Tabs {tabs} {activeTab} on:tabChange={tabChange}/>
