@@ -2,6 +2,7 @@ import { writable } from "svelte/store"
 
 // const stored = localStorage.cart
 
+export const shop = writable('')
 export const cart = writable([])
 
 // cart.subscribe((value) => localStorage.cart = value)
@@ -24,6 +25,11 @@ export const addProduct = (product) => {
 export const deleteProduct = (product) => {
     cart.update(cur => {
         const newCart = cur.filter(item => item.product.id !== product.id)
+
+        if (newCart.length === 0) {
+            shop.set('')
+        }
+
         return newCart
     })
 }
@@ -47,4 +53,8 @@ export const setProduct = (product, amount) => {
         cur[cur.findIndex(el => el.product.id == product.id)].quantity = amount
         return cur
     })
+}
+
+export const setShop = (store) => {
+    shop.set(store)
 }

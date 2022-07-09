@@ -3,7 +3,7 @@
   import { flip } from 'svelte/animate'
 </script>
 
-<div class="navbar bg-base-100 p-0">
+<div class="navbar bg-base-100 p-0 mb-8">
     <div class="flex-1">
       <a href="/" class="btn btn-ghost normal-case text-xl">
         <i class="text-xl mr-2 bi bi-house"></i>Home</a>

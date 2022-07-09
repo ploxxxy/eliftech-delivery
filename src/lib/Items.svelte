@@ -1,13 +1,14 @@
 <script>
     import { onMount } from 'svelte'
     import { supabase } from '../supabase'
-    import { addProduct, cart } from '../stores/cartStore'
+    import { addProduct, cart, setShop } from '../stores/cartStore'
 
     export let activeTab
     let items = []
 
     onMount(async () => {
-        const { data, error } = await supabase.from(activeTab).select()
+        if (!activeTab) return
+        const { data, error } = await supabase.from('products').select().eq('shop', activeTab)
 
         if (error) {
             return console.error(error)
@@ -18,6 +19,7 @@
 
     const onAddToCart = product => {
         addProduct(product)
+        setShop(activeTab)
     }
 
 </script>

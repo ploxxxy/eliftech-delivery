@@ -22,6 +22,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@supabase/supabase-js": "^1.35.4"
+    "@supabase/supabase-js": "^1.35.4",
+    "@tomtom-international/web-sdk-maps": "^6.20.0"
   }
 }
