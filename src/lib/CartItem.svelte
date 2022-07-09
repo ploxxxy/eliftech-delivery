@@ -13,7 +13,7 @@
       <h2 class="card-title">{item.product.name}</h2>
       <p class="">Price: ${item.product.price}</p>
       <div class="card-actions justify-end">
-        <input type="number" class="input input-sm input-bordered w-24" min="1" bind:value={item.quantity} on:change={() => { setProduct(item.product, item.quantity); dispatch('amountChanged') }}/>
+        <input type="number" class="input input-sm input-bordered w-20" min="1" bind:value={item.quantity} on:change={() => { setProduct(item.product, item.quantity); dispatch('amountChanged') }}/>
         <button class="btn btn-error btn-outline btn-sm btn-square" on:click={() => { deleteProduct(item.product); dispatch('amountChanged') }} ><i class="bi bi-x-lg"></i></button>
       </div>
     </div>
